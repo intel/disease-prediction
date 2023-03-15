@@ -64,8 +64,9 @@ Several BERT adaptations have been proposed to increase the performance of the m
 ## Get Started
 ### Download the Workflow Repository
 Create a working directory for the workflow and clone the [Breast Cancer Prediction Workflow](https://github.com/oneapi-src/disease-prediction/tree/main) repository into your working directory.
+
 ```
-git clone https://github.com/oneapi-src/disease-prediction brca_multimodal
+git clone https://github.com/intel/disease-prediction.git brca_multimodal
 cd brca_multimodal
 ```
 
