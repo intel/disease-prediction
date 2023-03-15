@@ -1,0 +1,16 @@
+datasets
+docx2txt
+huggingface-hub
+intel-extension-for-pytorch==1.13.0
+intel-extension-for-transformers==1.0a0
+intel-tensorflow==2.10.0
+neural-compressor==1.14.2
+openpyxl
+packaging
+scikit-learn
+scikit-learn-intelex
+tensorflow-hub
+tokenizers
+torch==1.13.1
+tqdm
+transformers

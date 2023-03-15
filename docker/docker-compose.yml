@@ -1,0 +1,84 @@
+services:
+  preprocess:
+    build:
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+        no_proxy: ${no_proxy}
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    command: sh -c "python data/prepare_nlp_data.py && python data/prepare_vision_data.py"
+    environment:
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+      - no_proxy=${no_proxy}
+    image: intel/disease-prediction:eap
+    privileged: true
+    volumes:
+      - ../data:/disease-prediction/data
+    working_dir: /disease-prediction
+
+  stock-nlp-fine-tuning:
+    command: python wrapper.py --nlp_finetune
+    environment: 
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+      - no_proxy=${no_proxy}
+    image: intel/disease-prediction:eap
+    privileged: true
+    volumes: 
+      - ../data:/disease-prediction/data
+      - /${OUTPUT_DIR:-$PWD/output}:/disease-prediction/output
+    working_dir: /disease-prediction
+  stock-vision-fine-tuning:
+    command: python wrapper.py --vision_finetune
+    environment: 
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+      - no_proxy=${no_proxy}
+    image: intel/disease-prediction:eap
+    privileged: true
+    volumes: 
+      - ../data:/disease-prediction/data
+      - /${OUTPUT_DIR:-$PWD/output}:/disease-prediction/output
+    working_dir: /disease-prediction
+  stock-inference:
+    command: python wrapper.py --inference
+    depends_on:
+      stock-nlp-fine-tuning:
+        condition: service_completed_successfully
+      stock-vision-fine-tuning:
+        condition: service_completed_successfully
+    environment: 
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+      - no_proxy=${no_proxy}
+    image: intel/disease-prediction:eap
+    privileged: true
+    volumes: 
+      - ../data:/disease-prediction/data
+      - /${OUTPUT_DIR:-$PWD/output}:/disease-prediction/output
+    working_dir: /disease-prediction
+
+  dev:
+    build:
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+        no_proxy: ${no_proxy}
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    command: python ${SCRIPT:-hls_wrapper.py} --${PARAMETER:-inference}
+    environment: 
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+      - no_proxy=${no_proxy}
+    image: intel/disease-prediction:eap
+    privileged: true
+    stdin_open: true
+    tty: true
+    volumes: 
+      - /${DATASET_DIR:-$PWD/../data}:/disease-prediction/data
+      - /${OUTPUT_DIR:-$PWD/output}:/disease-prediction/output
+      - /${WORKSPACE:-$PWD/..}:/disease-prediction
+    working_dir: /disease-prediction

@@ -1,0 +1,76 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: {{ .Values.metadata.name }}
+spec:
+  templates:
+    - name: main
+      dag:
+        tasks:
+          - name: vision-fine-tuning
+            template: disease-prediction
+            arguments: 
+              parameters: 
+                - name: mode
+                  value: vision_finetune
+          - name: nlp-fine-tuning
+            template: disease-prediction
+            arguments: 
+              parameters:
+                - name: mode
+                  value: nlp_finetune
+          - name: inference
+            template: disease-prediction
+            arguments: 
+              parameters:
+                - name: mode
+                  value: inference
+            dependencies:
+              - vision-fine-tuning
+              - nlp-fine-tuning
+        failFast: true
+    - name: disease-prediction
+      inputs:
+        artifacts:
+          - name: dataset
+            path: /disease-prediction/data
+            s3:
+              key: {{ .Values.inputs.artifacts.s3.key }}
+        parameters:
+        - name: mode
+      outputs: 
+        artifacts:
+          - name: '{{"{{inputs.parameters.mode}}"}}-output'
+            path: /disease-prediction/output
+      container:
+        name: ''
+        image: {{ .Values.image }}
+        command:
+          - python
+        args:
+          - wrapper.py
+          - '--{{"{{inputs.parameters.mode}}"}}'
+        env:
+          - name: http_proxy
+            value: '{{"{{workflow.parameters.http_proxy}}"}}'
+          - name: https_proxy
+            value: '{{"{{workflow.parameters.http_proxy}}"}}'
+        volumeMounts:
+          - name: output-dir
+            mountPath: /disease-prediction/output
+        imagePullPolicy: Always
+  entrypoint: main
+  arguments:
+    parameters:
+      - name: http_proxy
+        value: {{ .Values.proxy }}
+  volumeClaimTemplates:
+    - metadata:
+        name: output-dir
+        creationTimestamp: null
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi

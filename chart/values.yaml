@@ -1,0 +1,9 @@
+metadata:
+  name: disease-prediction
+
+image: intel/disease-prediction:eap
+proxy: nil
+inputs:
+  artifacts:
+    s3:
+      key: datasets/disease-prediction
