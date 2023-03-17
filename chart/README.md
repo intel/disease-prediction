@@ -8,7 +8,7 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| image | string | `"intel/disease-prediction:eap"` |  |
+| image | string | `"intel/ai-workflows:eap-disease-prediction"` |  |
 | inputs.artifacts.s3.key | string | `"datasets/disease-prediction"` | path to preprocessed dataset in s3 |
 | metadata.name | string | `"disease-prediction"` |  |
 | proxy | string | `"nil"` |  |

@@ -1,7 +1,7 @@
 metadata:
   name: disease-prediction
 
-image: intel/disease-prediction:eap
+image: intel/ai-workflows:eap-disease-prediction
 proxy: nil
 inputs:
   artifacts:

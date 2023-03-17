@@ -64,7 +64,6 @@ Several BERT adaptations have been proposed to increase the performance of the m
 ## Get Started
 ### Download the Workflow Repository
 Create a working directory for the workflow and clone the [Breast Cancer Prediction Workflow](https://github.com/oneapi-src/disease-prediction/tree/main) repository into your working directory.
-
 ```
 git clone https://github.com/intel/disease-prediction.git brca_multimodal
 cd brca_multimodal
@@ -123,7 +122,7 @@ docker compose build preprocess
 ```
 OR
 ```bash
-docker pull intel/disease-prediction:eap
+docker pull intel/ai-workflows:eap-disease-prediction
 ```
 
 ### 4. Preprocess Dataset with Docker Compose
@@ -205,7 +204,7 @@ docker run -a stdout ${DOCKER_RUN_ENVS} \
            -v ${OUTPUT_DIR}:/disease-prediction/output \
            -v ${WORKSPACE}:/disease-prediction \
            --privileged --init -it --rm --pull always \
-           intel/disease-prediction:eap \
+           intel/ai-workflows:eap-disease-prediction \
            bash
 ```
 
