@@ -65,7 +65,7 @@ Several BERT adaptations have been proposed to increase the performance of the m
 ### Download the Workflow Repository
 Create a working directory for the workflow and clone the [Breast Cancer Prediction Workflow](https://github.com/oneapi-src/disease-prediction/tree/main) repository into your working directory.
 ```
-git clone https://github.com/intel/disease-prediction.git brca_multimodal
+git clone https://github.com/oneapi-src/disease-prediction brca_multimodal
 cd brca_multimodal
 ```
 
@@ -75,12 +75,26 @@ The dataset is a collection of 2,006 high-resolution contrast-enhanced spectral 
 For more details of the dataset, visit the [Categorized contrast enhanced mammography dataset for diagnostic and artificial intelligence research](https://www.nature.com/articles/s41597-022-01238-0).
 
 #### Setting Up the Data
-Use the links below to download the datasets.
+Use the links below to download the image datasets.
 
 - [High-resolution Contrast-enhanced spectral mammography (CESM) images](https://faspex.cancerimagingarchive.net/aspera/faspex/external_deliveries/260?passcode=5335d2514638afdaf03237780dcdfec29edf4238#)
-- [Clinical data](https://wiki.cancerimagingarchive.net/download/attachments/109379611/Medical%20reports%20for%20cases%20.zip?api=v2)
-- [Radiology hand drawn segmentations](https://wiki.cancerimagingarchive.net/download/attachments/109379611/Radiology_hand_drawn_segmentations_v2.csv?api=v2)
-- [Radiology manual annotations](https://wiki.cancerimagingarchive.net/download/attachments/109379611/Radiology%20manual%20annotations.xlsx?api=v2)
+
+Run the comments below to download other datasets.
+
+- Clinical annotation data files
+```
+wget -O "data/Medical reports for cases .zip" https://wiki.cancerimagingarchive.net/download/attachments/109379611/Medical%20reports%20for%20cases%20.zip?api=v2
+```
+
+- Radiology hand drawn segmentations
+```
+wget -O "data/Radiology_hand_drawn_segmentations_v2.csv" https://wiki.cancerimagingarchive.net/download/attachments/109379611/Radiology_hand_drawn_segmentations_v2.csv?api=v2
+```
+
+- Radiology manual annotations
+```
+wget -O "data/Radiology manual annotations.xlsx" https://wiki.cancerimagingarchive.net/download/attachments/109379611/Radiology%20manual%20annotations.xlsx?api=v2
+```
 
 Copy all the downloaded files into the *data* directory.
 
@@ -364,7 +378,7 @@ For more information or to read about other relevant workflow examples, see thes
 
 
 ## Support
-The end-to-end multi-model disease prediction tea tracks both bugs and enhancement requests using [disease prediction GitHub repo](https://github.com/oneapi-src/disease-prediction). We welcome input, however, before filing a request, search the GitHub issue database. 
+The end-to-end multi-model disease prediction tea tracks both bugs and enhancement requests using [disease prediction GitHub repo](https://github.com/intel/disease-prediction). We welcome input, however, before filing a request, search the GitHub issue database. 
 
 
 

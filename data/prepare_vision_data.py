@@ -213,7 +213,7 @@ if __name__ == "__main__":
         "--image_folder",
         type=str,
         help="Location of image folder",
-        default=os.path.join(root_folder, "PKG - CDD-CESM/CDD-CESM"),
+        default=os.path.join(root_folder, "CDD-CESM"),
     )
     parser.add_argument(
         "--segmentation_path",
