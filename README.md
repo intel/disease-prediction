@@ -34,10 +34,10 @@ There are workflow-specific hardware and software setup requirements depending o
 | Intel® 4th Gen Xeon® Scalable Performance processors| FP32, BF16 |
 | Intel® 1st, 2nd, 3rd, and 4th Gen Xeon® Scalable Performance processors| FP32 |
 
-To execute the reference solution presented here, please use CPU for fine tuning, GPU for pretraning. 
+To execute the reference solution presented here, please use CPU for fine tuning, GPU for pretraining. 
 
 ## Software Requirements 
-Linux OS (Ubuntu 20.04) is used in this referense solution. Make sure the following dependencies are installed.
+Linux OS (Ubuntu 20.04) is used in this reference solution. Make sure the following dependencies are installed.
 ```
 sudo apt update 
 sudo apt install -y gcc libgl1-mesa-glx libglib2.0-0
@@ -154,11 +154,11 @@ Both NLP and Vision Fine-tuning containers must complete successfully before the
 
 ![stock_docker_topology](https://user-images.githubusercontent.com/43555799/221930568-7efcefa6-62bd-4453-b95d-f9d9b315391e.png)
 
-Run entire pipeline in detached state to view the logs of different running containers.
+Run entire pipeline to view the logs of different running containers.
 
 ```bash
 cd docker
-docker compose run -d stock-inference &
+docker compose run stock-inference &
 ```
 
 | Environment Variable Name | Default Value | Description |
@@ -171,7 +171,11 @@ Follow logs of each individual pipeline step using the commands below:
 ```bash
 docker compose logs stock-vision-fine-tuning -f
 docker compose logs stock-nlp-fine-tuning -f
-docker compose logs stock-inference -f
+```
+
+To view inference logs
+```bash
+fg
 ```
 
 ### 6. Run One Workflow with Docker Compose
