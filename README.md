@@ -123,14 +123,11 @@ docker compose version
 ### 2. Install Vision Packages and Intel TensorFlow Toolkit
 Ensure you have completed steps in the [Get Started Section](#get-started).
 
-```bash
-bash vision/setup_vision_workflow.sh
-```
-
 ### 3. Set Up Docker Image
 Build or Pull the provided docker image.
 
 ```bash
+bash vision/setup_vision_workflow.sh
 cd docker
 docker compose build preprocess
 ```
