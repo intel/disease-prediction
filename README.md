@@ -100,6 +100,15 @@ Copy all the downloaded files into the *data* directory.
 
 **Note:** See this dataset's applicable license for terms and conditions. Intel Corporation does not own the rights to this dataset and does not confer any rights to it.
 
+
+This reference kit offers three options for running the fine-tuning and inference processes:
+
+- Docker
+- Argo Workflows on K8s Using Helm
+- Bare Metal
+
+Details about each of these methods can be found below.
+
 ## Run Using Docker
 Follow these instructions to set up and run our provided Docker image. For running on bare metal, see the [bare metal](#run-using-bare-metal) instructions.
 
