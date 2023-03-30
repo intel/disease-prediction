@@ -136,6 +136,7 @@ Ensure you have completed steps in the [Get Started Section](#get-started).
 Build or Pull the provided docker image.
 
 ```bash
+git clone https://github.com/IntelAI/transfer-learning.git vision/tlt_toolkit
 bash vision/setup_vision_workflow.sh
 cd docker
 docker compose build preprocess
@@ -275,6 +276,7 @@ conda activate hls_env
 
 ### 2. Install Vision Packages and Intel TensorFlow Toolkit
 ```
+git clone https://github.com/IntelAI/transfer-learning.git vision/tlt_toolkit
 bash vision/setup_vision_workflow.sh
 ```
 
