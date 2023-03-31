@@ -100,7 +100,7 @@ Copy all the downloaded files into the *data* directory.
 
 **Note:** See this dataset's applicable license for terms and conditions. Intel Corporation does not own the rights to this dataset and does not confer any rights to it.
 
-
+## Ways to run this reference use case
 This reference kit offers three options for running the fine-tuning and inference processes:
 
 - Docker
