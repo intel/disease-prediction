@@ -1,0 +1,38 @@
+args:
+  dataset: local
+  dtype_ft: fp32
+  dtype_inf: fp32
+  finetune: true
+  finetune_impl: itrex
+  finetune_output: finetune_predictions_report.yaml
+  infer_impl: itrex
+  inference: true
+  inference_output: inference_predictions_report.yaml
+  local_dataset:
+    delimiter: ','
+    features:
+      class_label: label
+      data_column: symptoms
+      id: Patient_ID
+    finetune_input: data/annotation/training_data.csv
+    inference_input: data/annotation/testing_data.csv
+    label_list:
+    - Benign
+    - Malignant
+    - Normal
+  max_seq_len: 64
+  max_test_samples: null
+  max_train_samples: null
+  model_name_or_path: emilyalsentzer/Bio_ClinicalBERT
+  overwrite_cache: true
+  pipeline: finetune
+  preprocessing_num_workers: 32
+  smoke_test: false
+  tokenizer_name: emilyalsentzer/Bio_ClinicalBERT
+training_args:
+  do_predict: true
+  do_train: true
+  num_train_epochs: 8
+  output_dir: output/nlp
+  per_device_eval_batch_size: 100
+  per_device_train_batch_size: 100

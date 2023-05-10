@@ -1,9 +1,25 @@
 metadata:
   name: disease-prediction
-
-image: intel/ai-workflows:eap-disease-prediction
 proxy: nil
-inputs:
-  artifacts:
-    s3:
-      key: datasets/disease-prediction
+image:
+  base: intel/ai-workflows
+  vision_tlt: beta-vision-tlt-disease-prediction
+  hf_nlp: beta-hf-nlp-disease-prediction
+  use_case: beta-disease-prediction
+workflow:
+  config:
+    vision_tlt: vision_finetune
+    hf_nlp: nlp_finetune
+    use_case: disease_prediction_container
+  script: 
+    vision_tlt: run.py
+    hf_nlp: run.py
+    use_case: breast_cancer_prediction.py
+dataset:
+  type: <nfs/s3>
+  nfs:
+    server: nil
+    path: nil
+    subPath: nil
+  s3:
+    key: nil

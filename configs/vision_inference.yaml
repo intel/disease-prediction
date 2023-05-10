@@ -1,0 +1,19 @@
+args:
+  dataset_dir: data/train_test_split_images
+  dtype_ft: fp32
+  dtype_inf: fp32
+  finetune: false
+  finetune_output: output/vision/finetune_predictions_report.yaml
+  inference: true
+  inference_output: output/vision/inference_predictions_report.yaml
+  model: resnet_v1_50
+  model_name_or_path: output/vision
+  pipeline: inference
+  saved_model_dir: output/vision/resnet_v1_50/1
+  segmented_dir: data/segmented_images
+  tokenizer_name: output/vision
+training_args:
+  batch_size: 32
+  bf16: true
+  epochs: 5
+  output_dir: output/vision

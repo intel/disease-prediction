@@ -7,58 +7,76 @@ services:
         no_proxy: ${no_proxy}
       context: ../
       dockerfile: ./docker/Dockerfile
-    command: sh -c "python data/prepare_nlp_data.py && python data/prepare_vision_data.py"
+    command: python /workspace/intel-models/datasets/dataset_api/dataset.py -n brca --download --preprocess -d /workspace/data
     environment:
       - http_proxy=${http_proxy}
       - https_proxy=${https_proxy}
       - no_proxy=${no_proxy}
-    image: intel/ai-workflows:eap-disease-prediction
+      - USER_CONSENT=${USER_CONSENT}
+    image: intel/ai-workflows:beta-disease-prediction
     privileged: true
     volumes:
-      - ../data:/disease-prediction/data
-    working_dir: /disease-prediction
+      - /${DATASET_DIR:-$PWD/../data}:/workspace/data
+    working_dir: /workspace/intel-models/datasets/dataset_api
 
-  stock-nlp-fine-tuning:
-    command: python wrapper.py --nlp_finetune
+  stock-hf-nlp-fine-tuning:
+    build:
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+        no_proxy: ${no_proxy}
+      context: ../hf_nlp/workflows/hf_finetuning_and_inference_nlp
+      dockerfile: ./docker/Dockerfile
+    command: python src/run.py --config_file configs/${CONFIG:-nlp_finetune}.yaml 
     environment: 
       - http_proxy=${http_proxy}
       - https_proxy=${https_proxy}
       - no_proxy=${no_proxy}
-    image: intel/ai-workflows:eap-disease-prediction
+    image: intel/ai-workflows:beta-hf-nlp-disease-prediction
     privileged: true
     volumes: 
-      - ../data:/disease-prediction/data
-      - /${OUTPUT_DIR:-$PWD/output}:/disease-prediction/output
-    working_dir: /disease-prediction
-  stock-vision-fine-tuning:
-    command: python wrapper.py --vision_finetune
+      - /${DATASET_DIR:-$PWD/../data}:/workspace/data
+      - /${CONFIG_DIR:-$PWD/../configs}:/workspace/configs
+      - /${OUTPUT_DIR:-$PWD/../output}:/workspace/output
+    working_dir: /workspace
+  stock-vision-tlt-fine-tuning:
+    build:
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+        no_proxy: ${no_proxy}
+      context: ../vision_wf/workflows/disease_prediction
+      dockerfile: ./Dockerfile
+    command: python src/run.py --config_file configs/${CONFIG:-vision_finetune}.yaml 
     environment: 
       - http_proxy=${http_proxy}
       - https_proxy=${https_proxy}
       - no_proxy=${no_proxy}
-    image: intel/ai-workflows:eap-disease-prediction
+    image: intel/ai-workflows:beta-vision-tlt-disease-prediction
     privileged: true
     volumes: 
-      - ../data:/disease-prediction/data
-      - /${OUTPUT_DIR:-$PWD/output}:/disease-prediction/output
-    working_dir: /disease-prediction
+      - /${DATASET_DIR:-$PWD/../data}:/workspace/data
+      - /${CONFIG_DIR:-$PWD/../configs}:/workspace/configs
+      - /${OUTPUT_DIR:-$PWD/../output}:/workspace/output
+    working_dir: /workspace
   stock-inference:
-    command: python wrapper.py --inference
+    command: python src/breast_cancer_prediction.py --config_file configs/${CONFIG:-disease_prediction_container}.yaml
     depends_on:
-      stock-nlp-fine-tuning:
+      stock-hf-nlp-fine-tuning:
         condition: service_completed_successfully
-      stock-vision-fine-tuning:
+      stock-vision-tlt-fine-tuning:
         condition: service_completed_successfully
     environment: 
       - http_proxy=${http_proxy}
       - https_proxy=${https_proxy}
       - no_proxy=${no_proxy}
-    image: intel/ai-workflows:eap-disease-prediction
+    image: intel/ai-workflows:beta-disease-prediction
     privileged: true
     volumes: 
-      - ../data:/disease-prediction/data
-      - /${OUTPUT_DIR:-$PWD/output}:/disease-prediction/output
-    working_dir: /disease-prediction
+      - /${DATASET_DIR:-$PWD/../data}:/workspace/data
+      - /${CONFIG_DIR:-$PWD/../configs}:/workspace/configs
+      - /${OUTPUT_DIR:-$PWD/../output}:/workspace/output
+    working_dir: /workspace
 
   dev:
     build:
@@ -68,17 +86,17 @@ services:
         no_proxy: ${no_proxy}
       context: ../
       dockerfile: ./docker/Dockerfile
-    command: python ${SCRIPT:-hls_wrapper.py} --${PARAMETER:-inference}
+    command: python ${SCRIPT:-src/breast_cancer_prediction.py} --config_file configs/${CONFIG:-disease_prediction_container}.yaml
     environment: 
       - http_proxy=${http_proxy}
       - https_proxy=${https_proxy}
       - no_proxy=${no_proxy}
-    image: intel/ai-workflows:eap-disease-prediction
+    image: intel/ai-workflows:beta-disease-prediction
     privileged: true
     stdin_open: true
     tty: true
     volumes: 
-      - /${DATASET_DIR:-$PWD/../data}:/disease-prediction/data
-      - /${OUTPUT_DIR:-$PWD/output}:/disease-prediction/output
-      - /${WORKSPACE:-$PWD/..}:/disease-prediction
-    working_dir: /disease-prediction
+      - /${DATASET_DIR:-$PWD/../data}:/workspace/data
+      - /${CONFIG_DIR:-$PWD/../configs}:/workspace/configs
+      - /${OUTPUT_DIR:-$PWD/../output}:/workspace/output
+    working_dir: /workspace
