@@ -94,14 +94,18 @@ def data_preparation(config, root_folder):
     """
     # get the path to training and testing data
     data_root = config["nlp"]["args"]["local_dataset"]["finetune_input"]
-    training_data_path = path.join(
-        root_folder, "/".join(data_root.split("/")[:-1]), "training_data.csv"
-    )
     
+    if config['test_size']:
+        training_data_path = path.join(root_folder, "/".join(data_root.split("/")[:-1]), "training_data.csv" )
+    else:
+        training_data_path = path.join(root_folder, data_root) # "/".join(data_root.split("/")[:-1]), "training_data.csv" )
+
+
     data_root = config["nlp"]["args"]["local_dataset"]["inference_input"]
-    testing_data_path = path.join(
-        root_folder, "/".join(data_root.split("/")[:-1]), "testing_data.csv"
-    )
+    if config['test_size']:
+        testing_data_path = path.join(root_folder, "/".join(data_root.split("/")[:-1]), "testing_data.csv")
+    else:
+        testing_data_path = path.join(root_folder, data_root)
     
     # if training or testing data does not exist, create them unless overwrite_training_testing_ids is False
     if not (path.exists(training_data_path) and path.exists(testing_data_path)):

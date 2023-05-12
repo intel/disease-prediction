@@ -64,7 +64,7 @@ def create_confusion_matrix(df, true_labels, predictions):
     return df_cm
 
 
-def report_the_results(df_results, true_labels, prediction_list):
+def report_the_results(df_results, true_labels, prediction_list, output_dir):
     """
     Generate a confusion matrix for each prediction type and print them out.
 
@@ -73,17 +73,21 @@ def report_the_results(df_results, true_labels, prediction_list):
     - true_labels: str, the column name for the true labels
     - prediction_list: list of str, the column names for the different types of predictions
     """
+    
+    df_results.to_csv( path.join(  output_dir, 'all_results.csv' )   )
+
     for p in prediction_list:
         # Print the name of the prediction type for which the confusion matrix is generated
         print("        Confusion Matrix for " + p)
         
         # Generate the confusion matrix for this prediction type
         cm = create_confusion_matrix(df_results, true_labels=true_labels, predictions=p)
-        
+        cm.to_csv( path.join(  output_dir, p + '.csv' )   )
+
         # Print the confusion matrix
         print(cm)
         print("")
-
+        
 
 # update config file
 def update_config_file(config, root_folder):

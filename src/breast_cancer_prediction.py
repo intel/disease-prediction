@@ -78,7 +78,7 @@ def main():
 
     # # Report the results
     prediction_list = ["vision_predictions", "nlp_predictions", "ensemble_predictions"]
-    report_the_results(df_results, "labels", prediction_list)
+    report_the_results(df_results, "labels", prediction_list, path.join(root_folder, config['output_dir']  ) )
 
     print("done")
 
