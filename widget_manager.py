@@ -1,4 +1,4 @@
-from ipywidgets import GridspecLayout, Layout, Button, Image, Box, HBox, VBox, Textarea
+from ipywidgets import GridspecLayout, Layout, Button, Image, Box, Text, VBox, Textarea
 from IPython.display import display
 import ipywidgets as widgets
 from glob import glob
@@ -50,7 +50,7 @@ class Data_Extractor:
             icon='image' # (FontAwesome names without the `fa-` prefix)
         )
 
-        items = [Image(layout=Layout(height="100%", width="100%"), value=open(image, "rb").read(), format='jpg') for image in card['images']]
+        items = [Image(layout=Layout(height="100%", width="auto"), value=open(image, "rb").read(), format='jpg') for image in card['images']]
         box_layout = Layout(overflow='scroll hidden',
                             border='3px solid black',
                             width='100%',
@@ -153,6 +153,7 @@ class Manager:
         self.selected.index = 0
         self.selector.disabled = True
         self.selected.disabled = True
+        self.status.value = 'Loading...'
 
         id_selector_list = self.patient_ids_selector.to_list()
         id_selector_list.insert(0,"Select ID:")
@@ -167,6 +168,7 @@ class Manager:
 
         self.selector.disabled = False
         self.selected.disabled = False
+        self.status.value = ''
 
 
     def on_selected_change(self, change):
@@ -215,9 +217,17 @@ class Manager:
 
         self.selector.observe(self.on_selector_change, 'index')
         self.selected.observe(self.on_selected_change, 'index')
+
+        self.status = Text(
+            value='',
+            width='50%',
+            disabled=True
+        )
+
         self.grid = GridspecLayout(5, 3, height='500px')
         self.grid[0, 0] = self.selector
         self.grid[0, 1] = self.selected
+        self.grid[0, 2] = self.status
 
         display(self.grid)
 
