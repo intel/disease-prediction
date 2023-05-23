@@ -3,6 +3,7 @@ from IPython.display import display
 import ipywidgets as widgets
 from glob import glob
 import pandas as pd
+import yaml
 import re
 import os
 
@@ -24,8 +25,8 @@ class Data_Extractor:
                     value=False,
                     description='Study ID: {}'.format(patient_id),
                     disabled=True,
-                    button_style='', # 'success', 'info', 'warning', 'danger' or ''
-                    icon='user-circle' # (FontAwesome names without the `fa-` prefix)
+                    button_style='',
+                    icon='user-circle'
                 )
 
 
@@ -46,8 +47,8 @@ class Data_Extractor:
             value=False,
             description='Mamogram',
             disabled=True,
-            button_style='', # 'success', 'info', 'warning', 'danger' or ''
-            icon='image' # (FontAwesome names without the `fa-` prefix)
+            button_style='',
+            icon='image'
         )
 
         items = [Image(layout=Layout(height="100%", width="auto"), value=open(image, "rb").read(), format='jpg') for image in card['images']]
@@ -69,8 +70,8 @@ class Data_Extractor:
             value=False,
             description='Results ',
             disabled=True,
-            button_style='', # 'success', 'info', 'warning', 'danger' or ''
-            icon='file-text-o' # (FontAwesome names without the `fa-` prefix)
+            button_style='',
+            icon='file-text-o'
         )
         
         items_layout = Layout(width='100%')
@@ -90,7 +91,6 @@ class Data_Extractor:
             icon = 'check-circle'
             color = 'success'
 
-
         items = [Button(description="Ensemble Results:", object_position='left', layout=items_layout, button_style='', disabled=True),
                 Button(description=card['ensemble_predictions'], object_position='left', layout=items_layout, button_style=color, icon=icon, disabled=True)]
         results_box = Box(children=items, layout=box_layout)
@@ -100,7 +100,6 @@ class Data_Extractor:
 
     def get_report_card(self, patient_id:str):
         card = self.get_patient_file(patient_id)
-        print(card)
 
         grid = GridspecLayout(4, 3, height='300px', layout=Layout( border='solid', width='100%', height="100%"))
         
@@ -116,7 +115,7 @@ class Data_Extractor:
         grid[1:, 1] = images_box
         grid[0, 2] = results
         grid[1, 2] = results_box
-        #print(text_area.keys)
+
         return grid
 
 
@@ -172,7 +171,6 @@ class Manager:
 
 
     def on_selected_change(self, change):
-        #print(change)
         id_selected_pos=change['new']
         if id_selected_pos != 0:
             id_selected_pos-=1
@@ -184,7 +182,6 @@ class Manager:
 
 
     def on_selector_change(self, change):
-        #print(change)
         id_selector_pos=change['new']
         if id_selector_pos != 0:
             id_selector_pos-=1
@@ -233,24 +230,26 @@ class Manager:
 
 #-------------------------------------------------------------------------------
 
-def get_images_from_id(pid, data_dir=r'./data/CDD-CESM/Low energy images of CDD-CESM/', prefix='P'):
+def get_images_from_id(pid, data_dir, prefix='P'):
     image_glob = prefix +  "_".join(re.findall(r'(\d+)([L,R]+)', pid)[0]) + "*.jpg"
     image_glob = os.path.join(data_dir, image_glob)
     return glob(image_glob)
 
-#Extract
-all_results = pd.read_csv('output/all_results.csv', index_col=1)
-ensemble_predictions = pd.read_csv('output/ensemble_predictions.csv')
-annotations = pd.read_csv('data/annotation/annotation.csv', index_col=-1)[['symptoms']]
 
-#Transform
+config_file = "configs/notebook.yaml"
+
+with open(config_file, "r") as f:
+    conf = yaml.safe_load(f)
+
+
+all_results = pd.read_csv(conf['args']['all_results'], index_col=1)
+ensemble_predictions = pd.read_csv(conf['args']['ensemble_predictions'])
+annotations = pd.read_csv(conf['args']['annotation'], index_col=-1)[['symptoms']]
+
 all_results = all_results.merge(annotations, left_index=True, right_index=True, how='left')
-all_results['images'] = [get_images_from_id(pid) for pid in all_results.index]
-#print(all_results)
+all_results['images'] = [get_images_from_id(pid, conf['args']['cdd_cesm_dataset']) for pid in all_results.index]
 
 data_extractor = Data_Extractor(all_results)
-#display(data_extractor.get_report_card('156R'))
-#display(data_extractor.get_id_set(['156R', '165R']))#, '162R', '154R', '9L', '14L', '123L', '128R', '283R', '121L', '108L', '107R']))
 widget_manager = Manager(all_results)
 widget_manager.display()
 

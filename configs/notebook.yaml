@@ -1,0 +1,5 @@
+args:
+  cdd_cesm_dataset: data/CDD-CESM/Low energy images of CDD-CESM/
+  all_results: output/all_results.csv
+  ensemble_predictions: output/ensemble_predictions.csv
+  annotation: data/annotation/annotation.csv
