@@ -136,7 +136,10 @@ Prepare dataset for Disease Prediction workflows and accept the legal agreement 
 USER_CONSENT=y docker compose run preprocess
 ```
 
-**Note:** Before first time run, due to an bug with the preprocessing script run the following steps after preprocessing:
+**Note:** 
+Preprocessing Script Initialization: Essential Steps Prior to the First Execution
+
+To ensure a smooth and error-free experience, please follow these steps after completing the preprocessing stage. These steps are necessary to address any potential issues and ensure optimal functionality during the initial run. Run the following steps after preprocessing:
 ```bash
 # This will run the entire use case pipeline
 CONFIG=disease_prediction_baremetal docker compose run dev
