@@ -4,3 +4,7 @@
 [submodule "hf_nlp"]
 	path = hf_nlp
 	url = https://github.com/intel/intel-extension-for-transformers.git
+[submodule "intel-models"]
+	path = intel-models
+	url = https://github.com/IntelAI/models.git
+	branch = r2.11
