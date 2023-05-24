@@ -85,6 +85,7 @@ This reference kit offers three options for running the fine-tuning and inferenc
 - Docker
 - Argo Workflows on K8s Using Helm
 - Bare Metal
+- Run Using Jupyter Workspace 
 
 Details about each of these methods can be found below.
 
@@ -375,6 +376,18 @@ After the models are trained and saved using the script from step 4, load the NL
 
 > Alternatively, you can combine the training and inference processes into one execution by setting both the 'finetune' and 'inference' parameters to true in the 'disease_prediction.yaml' file and running the command provided in step 4.
 
+## Run Using Jupyter Workspace 
+Jupyter: Empowering Efficient ML Development and Experimentation with Workspaces and Python SDK Integration
+
+Harnessing the power of Jupyter, one of the most versatile tools for building and developing machine learning code, is made even more seamless with the inclusion of workspaces. With this feature, users can effortlessly leverage Jupyter backed by remote compute resources.
+
+When the time comes to execute experiments that are diligently tracked by intel devcloud and cnvrg, the process is made simple through the utilization of the Python SDK. By leveraging this SDK, users can effortlessly initiate and monitor their experiments with ease.
+
+Experience the freedom of a fully functional Jupyter workspace, where all you need is an open environment to unlock boundless possibilities in ML development and experimentation.
+
+Open [Jupyter workspace](https://cnvrg-job-notebooksession-zt6vn4x1ncy4adehyydu-11-jupyter.auqfmwbs3joskpufhcd5bbv.cloud.cnvrg.io/lab/workspaces/auto-4/tree/demo_files/brca_multimodal_notebook_inference.ipynb)
+
+
 ## Expected Output
 A successful execution of inference returns the confusion matrix of the sub-models and ensembled model, as shown in these example results: 
 ```
@@ -400,17 +413,6 @@ Normal      0.000      0.000    48.0      1.000
 Recall      0.867      0.919     1.0      0.939
 
 ```
-
-### Run Using Jupyter Workspace 
-Jupyter: Empowering Efficient ML Development and Experimentation with Workspaces and Python SDK Integration
-
-Harnessing the power of Jupyter, one of the most versatile tools for building and developing machine learning code, is made even more seamless with the inclusion of workspaces. With this feature, users can effortlessly leverage Jupyter backed by remote compute resources.
-
-When the time comes to execute experiments that are diligently tracked by intel devcloud and cnvrg, the process is made simple through the utilization of the Python SDK. By leveraging this SDK, users can effortlessly initiate and monitor their experiments with ease.
-
-Experience the freedom of a fully functional Jupyter workspace, where all you need is an open environment to unlock boundless possibilities in ML development and experimentation.
-
-Open [Jupyter workspace](https://cnvrg-job-notebooksession-zt6vn4x1ncy4adehyydu-11-jupyter.auqfmwbs3joskpufhcd5bbv.cloud.cnvrg.io/lab/workspaces/auto-4/tree/demo_files/brca_multimodal_notebook_inference.ipynb)
 
 
 
