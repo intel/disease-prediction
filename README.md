@@ -85,7 +85,7 @@ This reference kit offers three options for running the fine-tuning and inferenc
 - Docker
 - Argo Workflows on K8s Using Helm
 - Bare Metal
-- Run Using Jupyter Workspace 
+- Jupyter Workspace 
 
 Details about each of these methods can be found below.
 
