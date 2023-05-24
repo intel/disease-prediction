@@ -14,6 +14,8 @@ Multi-modal disease prediction is an Intel  optimized, end-to-end reference kit 
 - [Run Using Docker](#run-using-docker)
 - [Run Using Argo Workflows on K8s using Helm](#run-using-argo-workflows-on-k8s-using-helm)
 - [Run Using Bare Metal](#run-using-bare-metal) 
+- [Run Using Jupyter Lab](#run-using-jupyter-lab)
+- [Run Using Jupyter Workspace](#run-using-jupyter-workspace)
 - [Expected Output](#expected-output)
 - [Summary and Next Steps](#summary-and-next-steps)
 - [Learn More](#learn-more)
@@ -373,6 +375,32 @@ python src/breast_cancer_prediction.py --config_file configs/disease_prediction_
 After the models are trained and saved using the script from step 4, load the NLP and vision models using the inference option. This applies a weighted ensemble method to generate a final prediction. To only run inference, set the 'inference' parameter to true in the 'disease_prediction.yaml' file and run the command provided in step 4.
 
 > Alternatively, you can combine the training and inference processes into one execution by setting both the 'finetune' and 'inference' parameters to true in the 'disease_prediction.yaml' file and running the command provided in step 4.
+
+## Run Using Jupyter Lab
+To be able to run the code inside ```brca_multimodal_notebook.ipynb``` you should first install jupyter lab:
+```
+pip install jupyterlab
+```
+Or if user is using conda:
+```
+conda install -c conda-forge jupyterlab
+```
+Once Jupyter Lab is installed run from the project root directory:
+```
+jupyter lab
+```
+Once jupyter lab is running click on the provided link and follow the instructions inside the notebook.
+
+## Run Using Jupyter Workspace 
+Jupyter: Empowering Efficient ML Development and Experimentation with Workspaces and Python SDK Integration
+
+Harnessing the power of Jupyter, one of the most versatile tools for building and developing machine learning code, is made even more seamless with the inclusion of workspaces. With this feature, users can effortlessly leverage Jupyter backed by remote compute resources.
+
+When the time comes to execute experiments that are diligently tracked by intel devcloud and cnvrg, the process is made simple through the utilization of the Python SDK. By leveraging this SDK, users can effortlessly initiate and monitor their experiments with ease.
+
+Experience the freedom of a fully functional Jupyter workspace, where all you need is an open environment to unlock boundless possibilities in ML development and experimentation.
+
+Open [Jupyter workspace](https://cnvrg-job-notebooksession-zt6vn4x1ncy4adehyydu-11-jupyter.auqfmwbs3joskpufhcd5bbv.cloud.cnvrg.io/lab/workspaces/auto-4/tree/demo_files/brca_multimodal_notebook_inference.ipynb)
 
 ## Expected Output
 A successful execution of inference returns the confusion matrix of the sub-models and ensembled model, as shown in these example results: 
