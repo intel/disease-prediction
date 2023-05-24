@@ -14,6 +14,7 @@ Multi-modal disease prediction is an Intel  optimized, end-to-end reference kit 
 - [Run Using Docker](#run-using-docker)
 - [Run Using Argo Workflows on K8s using Helm](#run-using-argo-workflows-on-k8s-using-helm)
 - [Run Using Bare Metal](#run-using-bare-metal) 
+- [Run Using Jupyter Workspace](#run-using-jupyter-workspace)
 - [Expected Output](#expected-output)
 - [Summary and Next Steps](#summary-and-next-steps)
 - [Learn More](#learn-more)
@@ -399,6 +400,19 @@ Normal      0.000      0.000    48.0      1.000
 Recall      0.867      0.919     1.0      0.939
 
 ```
+
+### Run Using Jupyter Workspace 
+Jupyter: Empowering Efficient ML Development and Experimentation with Workspaces and Python SDK Integration
+
+Harnessing the power of Jupyter, one of the most versatile tools for building and developing machine learning code, is made even more seamless with the inclusion of workspaces. With this feature, users can effortlessly leverage Jupyter backed by remote compute resources.
+
+When the time comes to execute experiments that are diligently tracked by intel devcloud and cnvrg, the process is made simple through the utilization of the Python SDK. By leveraging this SDK, users can effortlessly initiate and monitor their experiments with ease.
+
+Experience the freedom of a fully functional Jupyter workspace, where all you need is an open environment to unlock boundless possibilities in ML development and experimentation.
+
+Open [Jupyter workspace](https://cnvrg-job-notebooksession-zt6vn4x1ncy4adehyydu-11-jupyter.auqfmwbs3joskpufhcd5bbv.cloud.cnvrg.io/lab/workspaces/auto-4/tree/demo_files/brca_multimodal_notebook_inference.ipynb)
+
+
 
 ## Summary and Next Steps
 This Github repo describes a reference kit for multi-modal disease prediction in the biomedical domain. The kit provides an end-to-end solution for fine-tuning and inference using categorized contrast-enhanced mammography data and radiologists' notes to predict breast cancer diagnosis. The reference kit includes a vision workload that trains an image classifier using CESM images, and a NLP pipeline that trains a document classifier using annotation notes about a patient's symptoms. Both pipelines create predictions for the diagnosis of breast cancer, which are then combined using a weighted ensemble method to create a final prediction. The ultimate goal of the reference kit is to develop and optimize a decision support system that can automatically categorize samples as normal, benign, or malignant, thereby reducing the need for expert involvement.
