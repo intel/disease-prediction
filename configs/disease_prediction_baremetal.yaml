@@ -1,9 +1,9 @@
 # uses previously created train and test data sets
-overwrite_training_testing_ids: false 
+overwrite_training_testing_ids: true 
 # specifies the location of the output model and inference results
 output_dir: "../output/"
 # sets the percentage of the test data set
-test_size: null # 0.1 # null
+test_size: 0.1
 # a container parameter that is set to false for bare metal
 write: true
 
@@ -20,7 +20,7 @@ nlp:
     local_dataset:
       # Input filename incase of local dataset.
       finetune_input: '../data/annotation/annotation.csv'
-      inference_input: '../data/annotation/testing_data_2.csv' #annotation.csv' 
+      inference_input: '../data/annotation/annotation.csv' 
       # File delimiter.
       delimiter: ","
       features:
@@ -35,7 +35,7 @@ nlp:
 
           
     # finetune
-    finetune: false
+    finetune: true
     # The implementation of fine-tuning pipeline. Now we support trainer and itrex implementation.
     finetune_impl: "itrex"
     # Data type for finetune pipeline. Support fp32 and bf16 for CPU. Support fp32, tf32, and fp16 for GPU.
@@ -90,7 +90,7 @@ vision:
 
     # finetune
     # runs vision fine-tuning
-    finetune: false
+    finetune: true
     # Datatype of Finetuning model(default: fp32 , options fp32, bf16)
     dtype_ft: "fp32"
     # Path of file to write output results.
