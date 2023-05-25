@@ -90,7 +90,7 @@ def report_the_results(df_results, true_labels, prediction_list, output_dir):
         
 
 # update config file
-def update_config_file(config, root_folder):
+def update_config_file(config, finetune, inference, root_folder):
     # Update the paths in the config dictionary to use absolute paths
     config["nlp"]["training_args"]["output_dir"] = path.join(
         root_folder, config["output_dir"], "nlp"
@@ -118,5 +118,15 @@ def update_config_file(config, root_folder):
 
     config["nlp"]["write"] = config["write"]
     config["vision"]["write"] = config["write"]
-    
+        
+    if finetune is not None:
+        finetune = True if finetune == "True" else False 
+        config["vision"]["args"]["finetune"] = finetune
+        config["nlp"]["args"]["finetune"] = finetune
+
+    if inference is not None:
+        inference = True if inference == "True" else False 
+        config["vision"]["args"]["inference"] = inference
+        config["nlp"]["args"]["inference"] = inference
+        
     return config

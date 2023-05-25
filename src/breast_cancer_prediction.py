@@ -18,20 +18,37 @@ def read_config():
     """Function to read the configuration parameters from the input file"""
     parser = argparse.ArgumentParser()
     parser.add_argument("--config_file", type=str, required=True)
+    
+    parser.add_argument(
+        "--finetune",
+        # type=str,
+        help="Execute the finetune",
+        default=None
+    )
+    
+    parser.add_argument(
+        "--inference",
+        # type=str,
+        help="Execute the inference",
+        default=None
+    )
+        
     args = parser.parse_args()
 
     with open(args.config_file, "r") as f:
         config = yaml.safe_load(f)
-
-    return config
-
+        
+    return config, args.finetune, args.inference
 
 def main():
     # Set the root folder to the current directory of the script
     root_folder = path.dirname(path.abspath(__file__))
 
     # read config parameters
-    config = update_config_file(read_config(), root_folder)
+    config, finetune, inference = read_config()
+    
+    # update config params
+    config = update_config_file(config, finetune, inference, root_folder)
 
     # data preparation
     config = data_preparation(config, root_folder)
@@ -73,14 +90,16 @@ def main():
     )
     config["vision"]["args"]["finetune"] = temp_inference
 
-    # ensemble
-    df_results = Ensemble().ensemble(config)
+       
+    if config["nlp"]["args"]["inference"] or config["vision"]["args"]["inference"]:
+        # ensemble
+        df_results = Ensemble().ensemble(config)
 
-    # # Report the results
-    prediction_list = ["vision_predictions", "nlp_predictions", "ensemble_predictions"]
-    report_the_results(df_results, "labels", prediction_list, path.join(root_folder, config['output_dir']  ) )
+        # # Report the results
+        prediction_list = ["vision_predictions", "nlp_predictions", "ensemble_predictions"]
+        report_the_results(df_results, "labels", prediction_list, path.join(root_folder, config['output_dir']  ) )
 
-    print("done")
+    print("===== Multi-Modal Disease Prediction is completed =====")
 
 
 if __name__ == "__main__":
