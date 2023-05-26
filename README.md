@@ -381,19 +381,33 @@ After the models are trained and saved using the script from step 4, load the NL
 > Alternatively, you can combine the training and inference processes into one execution by setting both the 'finetune' and 'inference' parameters to true in the 'disease_prediction.yaml' file and running the command provided in step 4.
 
 ## Run Using Jupyter Lab
-To be able to run the code inside ```brca_multimodal_notebook.ipynb``` you should first install jupyter lab:
+To be able to run the code inside ```brca_multimodal_notebook.ipynb``` user should first create a virtual environment. For venv use the following command:
 ```
-pip install jupyterlab
+python -m venv hls_env
+```
+To activate it user should run from the project root directory:
+```
+source hls_env/bin/activate
+```
+Once inside the environment the following packages must be installed:
+```
+python -m pip install ipykernel jupyterlab ipywidgets==8.0.6
+python -m ipykernel install --user --name hls_env
 ```
 Or if user is using conda:
 ```
-conda install -c conda-forge jupyterlab
+conda create --name hls_env python=3.9 ipykernel jupyterlab ipywidgets==8.0.4 -y -q
 ```
-Once Jupyter Lab is installed run from the project root directory:
+To activate it run the following command:
+```
+conda activate hls_env
+python -m ipykernel install --user --name hls_env
+```
+Once Jupyter Lab is installed from venv or conda run from the project root directory inside ```hls_env``` environment:
 ```
 jupyter lab
 ```
-Once jupyter lab is running click on the provided link and follow the instructions inside the notebook.
+When jupyter lab is running click on the provided link and follow the instructions inside the notebook. If needed change the kernel to ```hls_env```.
 
 
 ## Run Using Jupyter Workspace 
