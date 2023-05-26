@@ -9,7 +9,6 @@ Multi-modal disease prediction is an Intel  optimized, end-to-end reference kit 
 - [Software Requirements](#software-requirements)
 - [How it Works?](#how-it-works)
     - [Architecture](#architecture)
-    - [Pretraining of the ClinicalBERT Model](#pretraining-of-the-clinicalbert-model)
 - [Get Started](#get-started)
 - [Run Using Docker](#run-using-docker)
 - [Run Using Argo Workflows on K8s using Helm](#run-using-argo-workflows-on-k8s-using-helm)

@@ -118,7 +118,7 @@ def update_config_file(config, finetune, inference, root_folder):
 
     config["nlp"]["write"] = config["write"]
     config["vision"]["write"] = config["write"]
-        
+    
     if finetune:
         config["vision"]["args"]["finetune"] = finetune
         config["nlp"]["args"]["finetune"] = finetune
