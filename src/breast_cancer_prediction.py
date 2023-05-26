@@ -21,14 +21,16 @@ def read_config():
     
     parser.add_argument(
         "--finetune",
-        action='store_true',
+        # type=str,
         help="Execute the finetune",
+        default=None
     )
     
     parser.add_argument(
         "--inference",
-        action='store_true',
+        # type=str,
         help="Execute the inference",
+        default=None
     )
         
     args = parser.parse_args()
