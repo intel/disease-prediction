@@ -35,7 +35,7 @@ nlp:
 
           
     # finetune
-    finetune: false
+    finetune: true
     # The implementation of fine-tuning pipeline. Now we support trainer and itrex implementation.
     finetune_impl: "itrex"
     # Data type for finetune pipeline. Support fp32 and bf16 for CPU. Support fp32, tf32, and fp16 for GPU.
@@ -44,7 +44,7 @@ nlp:
     finetune_output: "finetune_predictions_report.yaml"
 
     # inference
-    inference: false 
+    inference: true 
     # The implementation of inference pipeline. Now we support trainer and itrex implementation.
     infer_impl: "itrex"
     # Data type for inference pipeline. Support fp32 and bf16 for CPU. Support fp32, tf32, and fp16 for GPU.
@@ -90,7 +90,7 @@ vision:
 
     # finetune
     # runs vision fine-tuning
-    finetune: false
+    finetune: true
     # Datatype of Finetuning model(default: fp32 , options fp32, bf16)
     dtype_ft: "fp32"
     # Path of file to write output results.
@@ -98,7 +98,7 @@ vision:
 
     # inference
     # runs vision inference
-    inference: false 
+    inference: true 
     # Datatype of inference (default: fp32 , options fp32, bf16)
     dtype_inf: "fp32" 
     # Path of file to write output results.
