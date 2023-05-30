@@ -46,7 +46,7 @@ def main():
 
     # read config parameters
     config, finetune, inference = read_config()
-    
+
     # update config params
     config = update_config_file(config, finetune, inference, root_folder)
 
