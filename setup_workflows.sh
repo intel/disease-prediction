@@ -1,5 +1,5 @@
 git submodule update --init --recursive
-pip install docx2txt openpyxl  ipywidgets jupyterlab python-dotenv dataset-librarian
+pip install docx2txt openpyxl python-dotenv dataset-librarian
 
 # Clone vision workflows
 pip install -r ${PWD}/vision_wf/workflows/disease_prediction/requirements.txt
