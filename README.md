@@ -418,8 +418,7 @@ When the time comes to execute experiments that are diligently tracked by intel 
 
 Experience the freedom of a fully functional Jupyter workspace, where all you need is an open environment to unlock boundless possibilities in ML development and experimentation.
 
-Open [Jupyter workspace](https://cnvrg-job-notebooksession-zt6vn4x1ncy4adehyydu-11-jupyter.auqfmwbs3joskpufhcd5bbv.cloud.cnvrg.io/lab/workspaces/auto-4/tree/demo_files/brca_multimodal_notebook_inference.ipynb)
-
+Open [Jupyter workspace](https://cnvrg-job-notebooksession-zt6vn4x1ncy4adehyydu-13-jupyter.auqfmwbs3joskpufhcd5bbv.cloud.cnvrg.io/lab/workspaces/auto-A/tree/demo_files/brca_multimodal_notebook.ipynb)
 
 ## Expected Output
 A successful execution of inference returns the confusion matrix of the sub-models and ensembled model, as shown in these example results: 
