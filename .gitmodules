@@ -1,3 +1,0 @@
-[submodule "vision_wf"]
-	path = vision_wf
-	url = https://github.com/IntelAI/transfer-learning.git
