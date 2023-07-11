@@ -8,9 +8,10 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| dataset.nfs.configSubPath | string | `"nil"` | Path to configs in Local NFS |
+| dataset.nfs.datasetSubPath | string | `"nil"` | Path to dataset in Local NFS |
 | dataset.nfs.path | string | `"nil"` | Path to Local NFS Share in Cluster Host |
 | dataset.nfs.server | string | `"nil"` | Hostname of NFS Server |
-| dataset.nfs.subPath | string | `"nil"` | Path to dataset in Local NFS |
 | dataset.s3.key | string | `"nil"` | Path to Dataset in S3 Bucket |
 | dataset.type | string | `"<nfs/s3>"` | `nfs` or `s3` dataset input enabler |
 | image.base | string | `"intel/ai-workflows"` | base container repository |
@@ -19,6 +20,7 @@ A Helm chart for Kubernetes
 | image.vision_tlt | string | `"beta-vision-tlt-disease-prediction"` | vision tlt workflow container tag |
 | metadata.name | string | `"disease-prediction"` |  |
 | proxy | string | `"nil"` |  |
+| serviceAccountName | string | `argo` |  |
 | workflow.config.hf_nlp | string | `"nlp_finetune"` | hf nlp finetuning config file name |
 | workflow.config.use_case | string | `"disease_prediction_container"` | ensemble inference config file name |
 | workflow.config.vision_tlt | string | `"vision_finetune"` | vision tlt finetuning config file name |

@@ -6,6 +6,7 @@ args:
   finetune_output: output/vision/finetune_predictions_report.yaml
   inference: true
   inference_output: output/vision/inference_predictions_report.yaml
+  inference_per_patient: false
   model: resnet_v1_50
   model_name_or_path: output/vision
   pipeline: inference
@@ -14,6 +15,7 @@ args:
   tokenizer_name: output/vision
 training_args:
   batch_size: 32
-  bf16: true
+  bf16: false
   epochs: 5
   output_dir: output/vision
+write: false

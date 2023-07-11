@@ -1,9 +1,6 @@
-# uses previously created train and test data sets
-overwrite_training_testing_ids: true 
 # specifies the location of the output model and inference results
 output_dir: "../output/"
-# sets the percentage of the test data set
-test_size: 0.1
+
 # a container parameter that is set to false for bare metal
 write: false
 
@@ -19,8 +16,8 @@ nlp:
     # ==== Required only when dataset: 'local' ====
     local_dataset:
       # Input filename incase of local dataset.
-      finetune_input: '../data/annotation/annotation.csv'
-      inference_input: '../data/annotation/annotation.csv' 
+      finetune_input: '../data/annotation/training_data.csv'
+      inference_input: '../data/annotation/testing_data.csv' 
       # File delimiter.
       delimiter: ","
       features:
@@ -39,21 +36,22 @@ nlp:
     # The implementation of fine-tuning pipeline. Now we support trainer and itrex implementation.
     finetune_impl: "itrex"
     # Data type for finetune pipeline. Support fp32 and bf16 for CPU. Support fp32, tf32, and fp16 for GPU.
-    dtype_ft: "fp32"
+    dtype_ft: "fp32" 
     # Path of file to write output results.
     finetune_output: "finetune_predictions_report.yaml"
 
     # inference
-    inference: true 
+    inference: true
     # The implementation of inference pipeline. Now we support trainer and itrex implementation.
     infer_impl: "itrex"
     # Data type for inference pipeline. Support fp32 and bf16 for CPU. Support fp32, tf32, and fp16 for GPU.
-    dtype_inf: "fp32" 
+    dtype_inf: "fp32"  
+
     # Path of file to write output results.
     inference_output: "inference_predictions_report.yaml"
 
     # The maximum total input sequence length after tokenization. Sequences longer than this will be truncated, sequences shorter will be padded.
-    max_seq_len: 64
+    max_seq_len: 128
     # Whether to execute in sanity check mode.
     smoke_test: false
     # For debugging purposes or quicker training, truncate the number of training examples to this value if set.
@@ -64,18 +62,20 @@ nlp:
     preprocessing_num_workers: 32
     # Overwrite the cached training and evaluation sets
     overwrite_cache: true
+    # To read performance 
+    save_detailed_performance_metrics: true
 
   training_args:
     # Number of epochs to run.
-    num_train_epochs: 8
+    num_train_epochs: 12
     # Whether to run training.
     do_train: true
     # Whether to run predictions.
     do_predict: true
     # Batch size per device during training.
-    per_device_train_batch_size: 100
+    per_device_train_batch_size: 256 
     # Batch size per device during evaluation.
-    per_device_eval_batch_size: 100
+    per_device_eval_batch_size: 256 
     
 vision: 
   args:
@@ -98,7 +98,9 @@ vision:
 
     # inference
     # runs vision inference
-    inference: true 
+    inference: true
+    # running inference per item
+    inference_per_patient: false
     # Datatype of inference (default: fp32 , options fp32, bf16)
     dtype_inf: "fp32" 
     # Path of file to write output results.
@@ -108,8 +110,6 @@ vision:
     # Batch size for training (default 32)
     batch_size: 32
     # Number of epochs for training
-    epochs: 5
+    epochs: 20
     # Enable BF16 by default
-    bf16: True
-
-    
+    bf16: false

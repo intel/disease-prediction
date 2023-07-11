@@ -1,5 +1,6 @@
 metadata:
   name: disease-prediction
+serviceAccountName: argo
 proxy: nil
 image:
   base: intel/ai-workflows
@@ -20,6 +21,7 @@ dataset:
   nfs:
     server: nil
     path: nil
-    subPath: nil
+    configSubPath: nil
+    datasetSubPath: nil
   s3:
     key: nil

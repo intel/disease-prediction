@@ -3,6 +3,7 @@ kind: WorkflowTemplate
 metadata:
   name: {{ .Values.metadata.name }}
 spec:
+  serviceAccountName: {{ .Values.serviceAccountName }}
   templates:
     - name: main
       dag:
@@ -82,10 +83,10 @@ spec:
         {{ if eq .Values.dataset.type "nfs" }}
           - name: dataset-dir
             mountPath: /workspace/data
-            subPath: '{{ .Values.dataset.nfs.subPath }}/brca'
+            subPath: '{{ .Values.dataset.nfs.datasetSubPath }}'
           - name: config-dir
             mountPath: /workspace/configs
-            subPath: '{{ .Values.dataset.nfs.subPath }}/configs'
+            subPath: '{{ .Values.dataset.nfs.configSubPath }}'
         {{ end }}
         imagePullPolicy: Always
       {{ if eq .Values.dataset.type "nfs" }}

@@ -19,8 +19,10 @@ class Ensemble(object):
         Returns:
             df_results (pandas.DataFrame): a DataFrame containing the ensemble predictions and the labels
         """
+        
         # Get corrected prediction probabilities for NLP and Vision models
         nlp_corr_pred = corrected_prediction_prob(config["nlp"], "nlp")
+
         vision_corr_pred = corrected_prediction_prob(config["vision"], "vision")
 
         # Read YAML file for Vision model
@@ -29,26 +31,25 @@ class Ensemble(object):
         # Sort predictions by ID and align IDs between NLP and Vision models
         nlp_corr_pred = nlp_corr_pred.sort_values(by="id").reset_index(drop=True)
         vision_corr_pred = vision_corr_pred.sort_values(by="id").reset_index(drop=True)
-        if (len(nlp_corr_pred) != len(vision_corr_pred)) or (
-            all(nlp_corr_pred.id != vision_corr_pred.id)
-        ):
-            nlp_corr_pred, vision_corr_pred = set_diff_ids(
-                nlp_corr_pred, vision_corr_pred
-            )
+                
+        if (len(nlp_corr_pred) != len(vision_corr_pred)) or ( all(nlp_corr_pred.id != vision_corr_pred.id)):
+            nlp_corr_pred, vision_corr_pred = set_diff_ids(nlp_corr_pred, vision_corr_pred) 
 
         # Create ensemble scores and map predicted labels to their original label names
-        pred = create_ensemble_scores(
+        pred, pred_score = create_ensemble_scores(
             nlp_corr_pred["predictions_probabilities"].to_list(),
             vision_corr_pred["predictions_probabilities"].to_list(),
         )
         pred_mapped = [yaml_file["label"][i] for i in pred]
-
+                
         # Create DataFrame with predictions and labels
         df_results = DataFrame()
+        df_results["id"] = nlp_corr_pred.id
         df_results["labels"] = vision_corr_pred["labels"]
         df_results["vision_predictions"] = vision_corr_pred["predictions_label"]
         df_results["nlp_predictions"] = nlp_corr_pred["predictions_label"]
         df_results["ensemble_predictions"] = pred_mapped
+        df_results["prediction_scores"] = pred_score
 
         return df_results
 
@@ -80,7 +81,8 @@ def f1_score_per_class(yaml_dict):
     
     # Extract the F1-score per class and return as a Series
     f1_scores = df_cm_res.loc[[str(i) for i in np.unique(truth)], "f1-score"]
-    return f1_scores
+    
+    return f1_scores, df_cm_res.loc['accuracy'][0]
 
 
 def corrected_prediction_prob(config, domain=None):
@@ -123,11 +125,11 @@ def corrected_prediction_prob(config, domain=None):
         )
 
     # get f1_scores from training data
-    f1_scores = f1_score_per_class(yaml_dict_finetune)
-
+    f1_scores, acc = f1_score_per_class(yaml_dict_finetune)
+            
     # corrected scores based on f1-scores
     corrected_scores = [
-        list(f1_scores * i) for i in yaml_dict_inference["predictions_probabilities"]
+        list( f1_scores**(1/3) * i * acc**3 ) for i in yaml_dict_inference["predictions_probabilities"]
     ]
 
     # create a pandas DataFrame with corrected predictions, labels and IDs
@@ -135,6 +137,7 @@ def corrected_prediction_prob(config, domain=None):
     df_corrected["labels"] = yaml_dict_inference["label_id"]
     df_corrected["predictions_label"] = yaml_dict_inference["predictions_label"]
     df_corrected["predictions_probabilities"] = corrected_scores
+    df_corrected["raw_predictions_probabilities"] = yaml_dict_inference["predictions_probabilities"]
     df_corrected["id"] = yaml_dict_inference["id"]
 
     return df_corrected
@@ -229,10 +232,10 @@ def create_ensemble_scores(nlp_corr_pred, vision_corr_pred):
     List containing predicted labels based on ensemble scores.
     """
     corr_pred_scores = np.array(nlp_corr_pred) + np.array(vision_corr_pred)
-    return [np.argmax(i) for i in corr_pred_scores]
+    return [np.argmax(i) for i in corr_pred_scores], [ max(i/sum(i)) for i in corr_pred_scores]
 
 
-def set_diff_ids(df1, df2):
+def set_diff_ids(df1, df2): 
     """
     Concatenates dataframes and ensures both dataframes have the same unique IDs.
 
@@ -243,30 +246,12 @@ def set_diff_ids(df1, df2):
     Returns:
     Two dataframes with the same unique IDs.
     """
-    # find the IDs in df1 that are not in df2
-    diff_ids_1 = list(set(df1.id) - set(df2.id))
-
-    # concatenate df1 and the subset of df1 that contains the IDs not in df2
-    if diff_ids_1:
-        df2 = (
-            concat([df2, df1[df1.id.isin(diff_ids_1)]])
-            .sort_values(by="id")
-            .reset_index(drop=True)
-        )
-
-    # find the IDs in df2 that are not in df1
-    diff_ids_2 = list(set(df2.id) - set(df1.id))
-
-    # concatenate df2 and the subset of df2 that contains the IDs not in df1
-    if diff_ids_2:
-        df1 = (
-            concat([df1, df2[df2.id.isin(diff_ids_2)]])
-            .sort_values(by="id")
-            .reset_index(drop=True)
-        )
-
+       
+    intersection_items =  list(set(df1.id).intersection(set(df2.id)))
+    df1 = df1[df1.id.isin(intersection_items)].reset_index(drop=True)
+    df2 = df2[df2.id.isin(intersection_items)].reset_index(drop=True)
+    
     return df1, df2
-
 
 def get_subject_id(image_name):
     """

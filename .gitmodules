@@ -1,7 +1,3 @@
-[submodule "intel-models"]
-	path = intel-models
-	url = https://github.com/IntelAI/models.git
-	branch = r2.11
 [submodule "vision_wf"]
 	path = vision_wf
 	url = https://github.com/IntelAI/transfer-learning.git

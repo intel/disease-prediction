@@ -2,7 +2,7 @@ args:
   dataset: local
   dtype_ft: fp32
   dtype_inf: fp32
-  finetune: true
+  finetune: false
   finetune_impl: itrex
   finetune_output: finetune_predictions_report.yaml
   infer_impl: itrex
@@ -20,7 +20,7 @@ args:
     - Benign
     - Malignant
     - Normal
-  max_seq_len: 64
+  max_seq_len: 128
   max_test_samples: null
   max_train_samples: null
   model_name_or_path: output/nlp
@@ -29,10 +29,12 @@ args:
   preprocessing_num_workers: 32
   smoke_test: false
   tokenizer_name: output/nlp
+  save_detailed_performance_metrics: true
 training_args:
   do_predict: true
   do_train: true
   num_train_epochs: 8
   output_dir: output/nlp
-  per_device_eval_batch_size: 100
-  per_device_train_batch_size: 100
+  per_device_eval_batch_size: 256
+  per_device_train_batch_size: 256
+write: false
