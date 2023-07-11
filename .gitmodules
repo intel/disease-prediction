@@ -1,0 +1,6 @@
+[submodule "hf_nlp"]
+	path = hf_nlp
+	url = https://github.com/intel/intel-extension-for-transformers.git
+[submodule "vision_wf"]
+	path = vision_wf
+	url = https://github.com/IntelAI/transfer-learning.git
