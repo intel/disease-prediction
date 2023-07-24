@@ -76,9 +76,6 @@ export WORKSPACE=/mydisk/mtw/mywork
 ### Download the Reference Kit Repository
 Create a working directory for the reference kit and clone the [Breast Cancer Prediction Reference Kit](https://github.com/intel/disease-prediction) repository into your working directory.
 ```
-* Remove this line in final release *	
-git clone https://github.com/intel-innersource/frameworks.ai.end2end-ai-pipelines.multimodal-breast-cancer-detection.git brca_multimodal
-
 git clone https://github.com/intel/disease-prediction.git $WORKSPACE/brca_multimodal
 cd $WORKSPACE/brca_multimodal
 git submodule update --init --recursive
