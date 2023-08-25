@@ -29,6 +29,7 @@ args:
   preprocessing_num_workers: 32
   smoke_test: false
   tokenizer_name: emilyalsentzer/Bio_ClinicalBERT
+  save_detailed_performance_metrics: true
 training_args:
   do_predict: true
   do_train: true
