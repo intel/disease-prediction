@@ -19,6 +19,7 @@ Check out more workflow and reference kit examples in the [Developer Catalog](ht
 - [Expected Output](#expected-output)
 - [Summary and Next Steps](#summary-and-next-steps)
 - [Learn More](#learn-more)
+- [Troubleshooting](#troubleshooting)
 - [Support](#support)
 
 
