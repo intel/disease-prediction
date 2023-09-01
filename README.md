@@ -483,6 +483,7 @@ For more information or to read about other relevant workflow examples, see thes
 
 ## Troubleshooting
 <!--- Validation Team please fill out --->
+Currently mixing workflows on bare-metal and Docker from same path on the host is not supported. Please start each workflow run from scratch to minimize the chances of previously cached data.
 
 ## Support
 The end-to-end multi-modal disease prediction tea tracks both bugs and enhancement requests using [disease prediction GitHub repo](https://github.com/intel/disease-prediction). We welcome input, however, before filing a request, search the GitHub issue database. 
