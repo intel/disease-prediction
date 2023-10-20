@@ -491,3 +491,5 @@ The end-to-end multi-modal disease prediction tea tracks both bugs and enhanceme
 
 \*Other names and brands may be claimed as the property of others.
 [Trademarks](https://www.intel.com/content/www/us/en/legal/trademarks.html).
+
+*Disclaimer: This reference implementation shows how to train a model to examine and evaluate a diagnostic theory and the associated performance of Intel technology solutions using very limited, non-diverse datasets to train the model. The model was not developed with any intention of clinical deployment and therefore lacks the requisite breadth and depth of quality information in its underlying datasets, or the scientific rigor necessary to be considered for use in actual diagnostic applications. Accordingly, while the model may serve as a foundation for additional research and development of more robust models, Intel expressly recommends and requests that this model not be used in clinical implementations or as a diagnostic tool.*
