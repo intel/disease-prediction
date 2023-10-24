@@ -1,5 +1,5 @@
 # specifies the location of the output model and inference results
-output_dir: "../output/"
+output_dir: "/workspace/output/"
 
 # a container parameter that is set to false for bare metal
 write: false
@@ -16,8 +16,8 @@ nlp:
     # ==== Required only when dataset: 'local' ====
     local_dataset:
       # Input filename incase of local dataset.
-      finetune_input: '../data/annotation/training_data.csv'
-      inference_input: '../data/annotation/testing_data.csv' 
+      finetune_input: '/workspace/data/annotation/training_data.csv'
+      inference_input: '/workspace/data/annotation/testing_data.csv' 
       # File delimiter.
       delimiter: ","
       features:
@@ -51,7 +51,7 @@ nlp:
     inference_output: "inference_predictions_report.yaml"
 
     # The maximum total input sequence length after tokenization. Sequences longer than this will be truncated, sequences shorter will be padded.
-    max_seq_len: 128
+    max_seq_len: 64
     # Whether to execute in sanity check mode.
     smoke_test: false
     # For debugging purposes or quicker training, truncate the number of training examples to this value if set.
@@ -73,16 +73,16 @@ nlp:
     # Whether to run predictions.
     do_predict: true
     # Batch size per device during training.
-    per_device_train_batch_size: 256 
+    per_device_train_batch_size: 100 
     # Batch size per device during evaluation.
-    per_device_eval_batch_size: 256 
+    per_device_eval_batch_size: 100 
     
 vision: 
   args:
     # contains the path for dataset_dir
-    dataset_dir: "../data/train_test_split_images"
+    dataset_dir: "/workspace/data/train_test_split_images"
     # contains the path for segmented dataset_dir
-    segmented_dir: "../data/segmented_images"
+    segmented_dir: "/workspace/data/segmented_images"
     # Pretrained model name (default resnetv150)
     model: "resnet_v1_50"
     # Directory where trained model gets saved

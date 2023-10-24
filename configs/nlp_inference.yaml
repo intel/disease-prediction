@@ -14,8 +14,8 @@ args:
       class_label: label
       data_column: symptoms
       id: Patient_ID
-    finetune_input: data/annotation/training_data.csv
-    inference_input: data/annotation/testing_data.csv
+    finetune_input: /workspace/data/annotation/training_data.csv
+    inference_input: /workspace/data/annotation/testing_data.csv
     label_list:
     - Benign
     - Malignant
