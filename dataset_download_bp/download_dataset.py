@@ -4,10 +4,10 @@ import requests
 AWS_BUCKET_URL = "https://intelai-datasets.s3.cn-north-1.amazonaws.com.cn"
 
 Sub_REMOTE_DIR = "PKG+-+CDD-CESM/CDD-CESM/Subtracted+images+of+CDD-CESM"
-Low_REMOTE_DIR = "PKG+-+CDD-CESM/CDD-CESM/Low+images+of+CDD-CESM"
+Low_REMOTE_DIR = "PKG+-+CDD-CESM/CDD-CESM/Low+energy+images+of+CDD-CESM"
 # Define the directory path
 Sub_LOCAL_DIR = "data/CDD-CESM/Subtracted images of CDD-CESM"
-Low_LOCAL_DIR = "data/CDD-CESM/Low images of CDD-CESM"
+Low_LOCAL_DIR = "data/CDD-CESM/Low energy images of CDD-CESM"
 # Create the directories
 os.makedirs(Sub_LOCAL_DIR, exist_ok=True)
 os.makedirs(Low_LOCAL_DIR, exist_ok=True)
