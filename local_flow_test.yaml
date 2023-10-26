@@ -1,0 +1,178 @@
+---
+flow: Flow 1
+recurring: 
+next_run_utc: 
+tasks:
+- input: python download_dataset.py
+  params: []
+  computes:
+  - SPR.AIA-SPR-medium
+  image: ai-workflows:pa-disease-prediction
+  description: Dataset_download
+  type: exec
+  git_commit: 
+  git_branch: 
+  mount_folders: []
+  icon: 
+  output_dir: output
+  confirmation: false
+  standalone_mode: false
+  notify_on_error: false
+  notify_on_success: false
+  emails: []
+  objective: 
+  objective_goal: 
+  objective_function: min
+  max_jobs: -1
+  parallel_jobs: -1
+  algorithm: GridSearch
+  queue_slug: ildjaux68t7dxx7q55lc
+  title: Dataset_download
+  top: 123
+  left: 73
+  conditions: []
+  commit: 7ca15c6f7960b1f1331850d5d2d05f23b4f327a4
+- input: python run_vision_workflow.py
+  params:
+  - key: input_path
+    type: categorical
+    min: 0
+    max: 0
+    scale: linear
+    steps: 0
+    values:
+    - "/workspace/src/run.py"
+  - key: config_path
+    type: categorical
+    min: 0
+    max: 0
+    scale: linear
+    steps: 0
+    values:
+    - "/workspace/configs/vision_finetune.yaml"
+  computes:
+  - SPR.AIA-SPR-large
+  image: ai-workflows:pa-vision-tlt-disease-prediction
+  description: Vision_Finetune
+  type: exec
+  git_commit: 
+  git_branch: 
+  mount_folders: []
+  icon: 
+  output_dir: output
+  confirmation: false
+  standalone_mode: false
+  notify_on_error: false
+  notify_on_success: false
+  emails: []
+  objective: 
+  objective_goal: 
+  objective_function: min
+  max_jobs: -1
+  parallel_jobs: -1
+  algorithm: GridSearch
+  queue_slug: ildjaux68t7dxx7q55lc
+  title: Vision_Finetune
+  top: 46
+  left: 302
+  conditions: []
+  commit: 7ca15c6f7960b1f1331850d5d2d05f23b4f327a4
+- input: python run_nlp_workflow.py
+  params:
+  - key: input_path
+    type: categorical
+    min: 0
+    max: 0
+    scale: linear
+    steps: 0
+    values:
+    - "/workspace/src/run.py"
+  - key: config_path
+    type: categorical
+    min: 0
+    max: 0
+    scale: linear
+    steps: 0
+    values:
+    - "/workspace/configs/nlp_finetune.yaml"
+  computes:
+  - SPR.AIA-SPR-large
+  image: ai-workflows:pa-hf-nlp-disease-prediction
+  description: Nlp_Finetune
+  type: exec
+  git_commit: 
+  git_branch: 
+  mount_folders: []
+  icon: 
+  output_dir: output
+  confirmation: false
+  standalone_mode: false
+  notify_on_error: false
+  notify_on_success: false
+  emails: []
+  objective: 
+  objective_goal: 
+  objective_function: min
+  max_jobs: -1
+  parallel_jobs: -1
+  algorithm: GridSearch
+  queue_slug: ildjaux68t7dxx7q55lc
+  title: Nlp_Finetune
+  top: 203
+  left: 312
+  conditions: []
+  commit: 7ca15c6f7960b1f1331850d5d2d05f23b4f327a4
+- input: python run_inference.py
+  params:
+  - key: input_path
+    type: categorical
+    min: 0
+    max: 0
+    scale: linear
+    steps: 0
+    values:
+    - "/workspace/src/run.py"
+  - key: config_path
+    type: categorical
+    min: 0
+    max: 0
+    scale: linear
+    steps: 0
+    values:
+    - "/workspace/configs/disease_prediction_container.yaml"
+  computes:
+  - SPR.AIA-SPR-large
+  image: ai-workflows:pa-disease-prediction
+  description: Inference
+  type: exec
+  git_commit: 
+  git_branch: 
+  mount_folders: []
+  icon: 
+  output_dir: output
+  confirmation: false
+  standalone_mode: false
+  notify_on_error: false
+  notify_on_success: false
+  emails: []
+  objective: 
+  objective_goal: 
+  objective_function: min
+  max_jobs: -1
+  parallel_jobs: -1
+  algorithm: GridSearch
+  queue_slug: ildjaux68t7dxx7q55lc
+  title: Inference
+  top: 127
+  left: 579
+  conditions: []
+  commit: 7ca15c6f7960b1f1331850d5d2d05f23b4f327a4
+relations:
+- from: Dataset_download
+  to: Vision_Finetune
+- from: Dataset_download
+  to: Nlp_Finetune
+- from: Vision_Finetune
+  to: Inference
+- from: Nlp_Finetune
+  to: Inference

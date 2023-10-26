@@ -27,24 +27,25 @@ author: "cnvrg"
 author_email: "info@cnvrg.io"
 tags:
   - inference
-command: bash workflow_for_flows.sh --inference
+command: python run_inference.py
 requirements:
-  cpu: 32
-  memory: 32
+  cpu: 64
+  memory: 64
   gpu: 0
   hpu: 0
 compute:
-  - SPR.small
+  - SPR.medium
   
 
-image: ai-workflows:pa-disease-prediction
+image: docker.io/intel/ai-workflows:pa-disease-prediction
 language: python3
 
 arguments:
-  - key: ''
-    type: discrete
-    min: 0
-    max: 0
-    scale: linear
-    steps: 0
-    values: []
+  - key: input_path
+    type: 'categorical'
+    values:
+      - '/workspace/src/run.py'
+  - key: config_path
+    type: 'categorical'
+    values:
+      - '/workspace/configs/disease_prediction_container.yaml'

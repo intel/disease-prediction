@@ -31,17 +31,17 @@ tags:
   - training, inference
 
 tasks:
-  - title: dataset_preprocess
+  - title: Dataset_download
     top: 50
     left: 50
 
     type: exec
 
     # The library data
-    library: dataset_preprocess
+    library: Dataset_download
     library_version: 1.0.0
     # The flattened library parameters (in this case we have training library)
-    command: bash workflow_for_flows.sh --preprocess
+    command: python download_dataset.py
 
     requirements:
       cpu: 64
@@ -49,11 +49,11 @@ tasks:
       gpu: 0
       hpu: 0
 
-    image: ai-workflows:pa-vision-tlt-disease-prediction
+    image: docker.io/intel/ai-workflows:pa-vision-tlt-disease-prediction
     language: python3
 
 
-  - title: Vision
+  - title: Vision_Finetune
     top: 50
     left: 297
 
@@ -62,7 +62,7 @@ tasks:
     library: vision
     library_version: 1.0.0
 
-    command: bash workflow_for_flows.sh --vision
+    command: python run_vision_workflow.py
 
     requirements:
       cpu: 64
@@ -70,22 +70,29 @@ tasks:
       gpu: 0
       hpu: 0
 
-    image: ai-workflows:pa-vision-tlt-disease-prediction
+    image: docker.io/intel/ai-workflows:pa-vision-tlt-disease-prediction
     language: python3
 
     params:
-      []
+    - key: input_path
+      type: 'categorical'
+      values:
+      - '/workspace/src/run.py'
+    - key: config_path
+      type: 'categorical'
+      values:
+      - '/workspace/configs/vision_finetune.yaml'
 
-  - title: nlp
+  - title: Nlp_finetune
     top: 146
     left: 304
 
     type: exec
 
-    library: NLP
+    library: NLP_finetune
     library_version: 1.0.0
 
-    command: bash workflow_for_flows.sh --nlp
+    command: python run_nlp_finetune.py
 
     requirements:
       cpu: 64
@@ -93,11 +100,20 @@ tasks:
       gpu: 0
       hpu: 0
 
-    image: ai-workflows:pa-hf-nlp-disease-prediction
+    image: docker.io/intel/ai-workflows:pa-hf-nlp-disease-prediction
     language: python3
     
     params: 
-      []
+    - key: input_path
+      type: 'categorical'
+      values:
+      - '/workspace/src/run.py'
+    - key: config_path
+      type: 'categorical'
+      values:
+      - '/workspace/configs/nlp_finetune.yaml'
+
+      
   - title: Inference
     top: 51
     left: 602
@@ -107,7 +123,7 @@ tasks:
     library: Inference
     library_version: 1.0.0
 
-    command: bash workflow_for_flows.sh --inference
+    command: python run_inference.py
 
     requirements:
       cpu: 64
@@ -115,18 +131,26 @@ tasks:
       gpu: 0
       hpu: 0
 
-    image: ai-workflows:pa-disease-prediction
+    image: docker.io/intel/ai-workflows:pa-disease-prediction
     language: python3
 
     params: 
-      []     
+    - key: input_path
+      type: 'categorical'
+      values:
+      - '/workspace/src/run.py'
+    - key: config_path
+      type: 'categorical'
+      values:
+      - '/workspace/configs/vision_finetune.yaml'
+     
      
 relations:
-- from: hls_disease_prediction
-  to: Vision
-- from: NLP
+- from: Dataset_download
+  to: Vision_Finetune
+- from: Dataset_download
+  to: Nlp_Finetune
+- from: Vision_Finetune
   to: Inference
-- from: Vision
+- from: Nlp_Finetune
   to: Inference
-- from: hls_disease_prediction
-  to: NLP

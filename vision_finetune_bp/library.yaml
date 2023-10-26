@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-title: NLP
+title: Vision_Finetune
 version: 1.0.0
 description: "Runs model fine tuning to classify images as benign, malignant and normal"
 icon: python
@@ -27,24 +27,25 @@ author: "Intel"
 author_email: "info@cnvrg.io"
 tags:
   - training
-command: bash workflow_for_flows.sh --nlp
+command: python run_vision_workflow.py
 requirements:
   cpu: 64
   memory: 64
   gpu: 0
   hpu: 0
 compute:
-  - SPR.small
+  - SPR.medium
   
 
-image:  ai-workflows:pa-hf-nlp-disease-prediction
+image: /docker.io/intel/ai-workflows:pa-vision-tlt-disease-prediction
 language: python3
 
 arguments:
-  - key: ''
-    type: discrete
-    min: 0
-    max: 0
-    scale: linear
-    steps: 0
-    values: []
+  - key: input_path
+    type: 'categorical'
+    values:
+      - '/workspace/src/run.py'
+  - key: config_path
+    type: 'categorical'
+    values:
+      - '/workspace/configs/vision_finetune.yaml'
