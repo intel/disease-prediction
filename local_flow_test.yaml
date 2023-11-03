@@ -49,7 +49,7 @@ tasks:
     scale: linear
     steps: 0
     values:
-    - "/workspace/configs/vision_finetune.yaml"
+    - "vision_finetune.yaml"
   computes:
   - SPR.AIA-SPR-large
   image: ai-workflows:pa-vision-tlt-disease-prediction
@@ -94,7 +94,7 @@ tasks:
     scale: linear
     steps: 0
     values:
-    - "/workspace/configs/nlp_finetune.yaml"
+    - "nlp_finetune.yaml"
   computes:
   - SPR.AIA-SPR-large
   image: ai-workflows:pa-hf-nlp-disease-prediction
@@ -139,7 +139,7 @@ tasks:
     scale: linear
     steps: 0
     values:
-    - "/workspace/configs/disease_prediction_container.yaml"
+    - "disease_prediction_container.yaml"
   computes:
   - SPR.AIA-SPR-large
   image: ai-workflows:pa-disease-prediction

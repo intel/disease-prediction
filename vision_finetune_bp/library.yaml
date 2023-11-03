@@ -48,4 +48,4 @@ arguments:
   - key: config_path
     type: 'categorical'
     values:
-      - '/workspace/configs/vision_finetune.yaml'
+      - 'vision_finetune.yaml'

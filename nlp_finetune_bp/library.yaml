@@ -48,4 +48,4 @@ arguments:
   - key: config_path
     type: 'categorical'
     values:
-      - '/workspace/configs/nlp_finetune.yaml'
+      - 'nlp_finetune.yaml'

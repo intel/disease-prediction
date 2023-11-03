@@ -48,4 +48,4 @@ arguments:
   - key: config_path
     type: 'categorical'
     values:
-      - '/workspace/configs/disease_prediction_container.yaml'
+      - 'disease_prediction_container.yaml'

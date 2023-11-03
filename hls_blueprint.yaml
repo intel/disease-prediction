@@ -81,7 +81,7 @@ tasks:
     - key: config_path
       type: 'categorical'
       values:
-      - '/workspace/configs/vision_finetune.yaml'
+      - 'vision_finetune.yaml'
 
   - title: Nlp_finetune
     top: 146
@@ -111,7 +111,7 @@ tasks:
     - key: config_path
       type: 'categorical'
       values:
-      - '/workspace/configs/nlp_finetune.yaml'
+      - 'nlp_finetune.yaml'
 
       
   - title: Inference
@@ -142,7 +142,7 @@ tasks:
     - key: config_path
       type: 'categorical'
       values:
-      - '/workspace/configs/vision_finetune.yaml'
+      - 'vision_finetune.yaml'
      
      
 relations:
