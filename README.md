@@ -2,7 +2,9 @@
 Many reference kits in the bio-medical domain focus on a single-model and single-modal solution. Exclusive reliance on a single method has some limitations, such as impairing the design of robust and accurate classifiers for complex datasets. To overcome these limitations, we provide this multi-modal disease prediction reference kit.
 
 Multi-modal disease prediction is an Intel optimized, end-to-end reference kit for fine-tuning and inference. This reference kit implements a multi-model and multi-modal solution that will help to predict diagnosis by using categorized contrast enhanced mammography data and radiologists’ notes.
- 
+
+You can find a blog article related to this topic by following this [link](https://medium.com/intel-analytics-software/better-multi-modal-disease-prediction-58920e202d28).
+
 Check out more workflow and reference kit examples in the [Developer Catalog](https://developer.intel.com/aireferenceimplementations).
 
 ## Table of Contents
