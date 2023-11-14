@@ -25,12 +25,12 @@ if __name__ == "__main__":
             "--input_path",
             required=False,
             type=str,
-            help="specify the input source file path for running the workflow", default="/workspace/src/run.py")
+            help="specify the input source file path for running the workflow", default="/workspace/src/breast_cancer_prediction.py")
     parser.add_argument(
             "--config_path",
             required=False,
             type=str,
-            default="/workspace/configs/disease_prediction_container.yaml",
+            default="disease_prediction_container.yaml",
             help="specify the config file name")
     
     args, _ = parser.parse_known_args()

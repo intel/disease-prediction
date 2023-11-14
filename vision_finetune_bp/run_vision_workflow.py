@@ -30,7 +30,7 @@ if __name__ == "__main__":
             "--config_path",
             required=False,
             type=str,
-            default="/workspace/configs/vision_finetune.yaml",
+            default="vision_finetune.yaml",
             help="specify the config file name")
     
     args, _ = parser.parse_known_args()

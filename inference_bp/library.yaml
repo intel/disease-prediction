@@ -21,7 +21,7 @@
 
 title: Inference
 version: 1.0.0
-description: "Runs ensemble inference to classify a patient as benign, malignant and normal"
+description: "Runs ensemble inference to classify a patient as benign or malignant or normal"
 icon: Intel
 author: "cnvrg"
 author_email: "info@cnvrg.io"
@@ -29,23 +29,11 @@ tags:
   - inference
 command: python run_inference.py
 requirements:
-  cpu: 64
-  memory: 64
+  cpu: 32
+  memory: 32
   gpu: 0
   hpu: 0
-compute:
-  - SPR.medium
   
 
-image: docker.io/intel/ai-workflows:pa-disease-prediction
+image: ai-workflows:pa-disease-prediction
 language: python3
-
-arguments:
-  - key: input_path
-    type: 'categorical'
-    values:
-      - '/workspace/src/run.py'
-  - key: config_path
-    type: 'categorical'
-    values:
-      - 'disease_prediction_container.yaml'

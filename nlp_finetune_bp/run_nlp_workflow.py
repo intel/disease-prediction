@@ -30,7 +30,7 @@ if __name__ == "__main__":
             "--config_path",
             required=False,
             type=str,
-            default="/workspace/configs/nlp_finetune.yaml",
+            default="nlp_finetune.yaml",
             help="specify the config file name")
     
     args, _ = parser.parse_known_args()

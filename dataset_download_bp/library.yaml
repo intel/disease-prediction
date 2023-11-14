@@ -21,7 +21,7 @@
 
 title: Dataset download
 version: 1.0.0
-description: "Downloads the cancer image and notes data, segments the cancer images and splits into train test set"
+description: "Downloads the cancer image and notes data splits into train test set after segmenting the images"
 icon: python
 author: "Intel"
 author_email: "info@cnvrg.io"
@@ -29,15 +29,13 @@ tags:
   - training
 command: python download_dataset.py
 requirements:
-  cpu: 64
-  memory: 64
+  cpu: 32
+  memory: 32
   gpu: 0
   hpu: 0
-compute:
-  - SPR.medium
   
 
-image:  docker.io/intel/ai-workflows:pa-disease-prediction
+image:  ai-workflows:pa-disease-prediction
 language: python3
 
 arguments:

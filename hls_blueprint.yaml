@@ -44,12 +44,12 @@ tasks:
     command: python download_dataset.py
 
     requirements:
-      cpu: 64
-      memory: 64
+      cpu: 32
+      memory: 32
       gpu: 0
       hpu: 0
 
-    image: docker.io/intel/ai-workflows:pa-vision-tlt-disease-prediction
+    image: ai-workflows:pa-vision-tlt-disease-prediction
     language: python3
 
 
@@ -65,23 +65,13 @@ tasks:
     command: python run_vision_workflow.py
 
     requirements:
-      cpu: 64
-      memory: 64
+      cpu: 32
+      memory: 32
       gpu: 0
       hpu: 0
 
-    image: docker.io/intel/ai-workflows:pa-vision-tlt-disease-prediction
+    image: ai-workflows:pa-vision-tlt-disease-prediction
     language: python3
-
-    params:
-    - key: input_path
-      type: 'categorical'
-      values:
-      - '/workspace/src/run.py'
-    - key: config_path
-      type: 'categorical'
-      values:
-      - 'vision_finetune.yaml'
 
   - title: Nlp_finetune
     top: 146
@@ -95,24 +85,14 @@ tasks:
     command: python run_nlp_finetune.py
 
     requirements:
-      cpu: 64
-      memory: 64
+      cpu: 32
+      memory: 32
       gpu: 0
       hpu: 0
 
-    image: docker.io/intel/ai-workflows:pa-hf-nlp-disease-prediction
+    image: ai-workflows:pa-hf-nlp-disease-prediction
     language: python3
     
-    params: 
-    - key: input_path
-      type: 'categorical'
-      values:
-      - '/workspace/src/run.py'
-    - key: config_path
-      type: 'categorical'
-      values:
-      - 'nlp_finetune.yaml'
-
       
   - title: Inference
     top: 51
@@ -126,24 +106,13 @@ tasks:
     command: python run_inference.py
 
     requirements:
-      cpu: 64
-      memory: 64
+      cpu: 32
+      memory: 32
       gpu: 0
       hpu: 0
 
-    image: docker.io/intel/ai-workflows:pa-disease-prediction
+    image: ai-workflows:pa-disease-prediction
     language: python3
-
-    params: 
-    - key: input_path
-      type: 'categorical'
-      values:
-      - '/workspace/src/run.py'
-    - key: config_path
-      type: 'categorical'
-      values:
-      - 'vision_finetune.yaml'
-     
      
 relations:
 - from: Dataset_download
