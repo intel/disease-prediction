@@ -3,17 +3,17 @@ args:
   dtype_ft: fp32
   dtype_inf: fp32
   finetune: true
-  finetune_output: output/vision/finetune_predictions_report.yaml
+  finetune_output: /cnvrg/output/vision/finetune_predictions_report.yaml
   inference: false
   inference_per_patient: false
-  inference_output: output/vision/inference_predictions_report.yaml
+  inference_output: /cnvrg/output/vision/inference_predictions_report.yaml
   model: resnet_v1_50
   pipeline: finetune
-  saved_model_dir: output/vision/resnet_v1_50/1
+  saved_model_dir: /cnvrg/output/vision/resnet_v1_50/1
   segmented_dir: /input/dataset_download/data/segmented_images
 training_args:
   batch_size: 32
   bf16: true
   epochs: 5
-  output_dir: output/vision
+  output_dir: /cnvrg/output/vision
 write: false

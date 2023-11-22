@@ -34,7 +34,7 @@ training_args:
   do_predict: true
   do_train: true
   num_train_epochs: 8
-  output_dir: output/nlp
+  output_dir: /cnvrg/output/nlp
   per_device_eval_batch_size: 100
   per_device_train_batch_size: 100
 write: false

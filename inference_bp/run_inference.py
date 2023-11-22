@@ -19,6 +19,25 @@ limitations under the License.
 import os
 import argparse
 
+import subprocess 
+
+
+# List of commands to run
+commands = [
+    ["mkdir -p /cnvrg/output"],
+	["mkdir -p /cnvrg_libraries/dev-inference/output"],
+    ["cp -r /input/dataset_download/data /cnvrg/"],
+	["cp -r /input/dataset_download/data /cnvrg_libraries/dev-inference/"],
+    ["cp -r /input/nlp_finetune/output/ /cnvrg/"],
+	["cp -r /input/nlp_finetune/output/ /cnvrg_libraries/dev-inference/"],
+    ["cp -r /input/vision_finetune/output/ /cnvrg/"],
+	["cp -r /input/vision_finetune/output/ /cnvrg_libraries/dev-inference/"],
+    ["rm -rf /workspace/output"],
+	["ln -s /cnvrg_libraries/dev-inference/output /workspace/"],
+    ["ln -s /cnvrg/data/ /workspace/data"],
+    
+]
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -35,6 +54,13 @@ if __name__ == "__main__":
     
     args, _ = parser.parse_known_args()
     print("PATH",os.path.dirname(os.path.abspath(__file__)))
+	# Run each command one by one
+    for command in commands:
+        process = subprocess.run(command,shell=True)
+        if process.returncode == 0:
+            print(f"Command '{' '.join(command)}' executed successfully")
+        else:
+            print(f"Command '{' '.join(command)}' failed with return code {process.returncode}")
     src_file = args.input_path
     config_path = args.config_path
     cmd_line = f"python {src_file} --config_file {config_path}"
