@@ -68,12 +68,9 @@ class RunWorkflow(object):
             + path.join(self.root_folder, "../", run_file)
             + " --config_file "
             + yaml_path
-        )
-
-        process = subprocess.Popen(
-            [cmd],
-            shell=True,
-        )
+        ).split(' ')
+        
+        process = subprocess.Popen(cmd) 
         process.wait()
 
     # fine-tuning
