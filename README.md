@@ -88,7 +88,7 @@ git submodule update --init --recursive
 ### Download and Preprocess the Datasets
 Use the links below to download the image datasets. Or skip to the [Docker](#run-using-docker) section to download the dataset using a container.
 
-- [High-resolution Contrast-enhanced spectral mammography (CESM) images](https://faspex.cancerimagingarchive.net/aspera/faspex/external_deliveries/260?passcode=5335d2514638afdaf03237780dcdfec29edf4238#)
+- [High-resolution Contrast-enhanced spectral mammography (CESM) images](https://www.cancerimagingarchive.net/collection/cdd-cesm/)
 
 Once you have downloaded the image files and placed them into the data directory, proceed by executing the following command. This command will initiate the download of segmentation and annotation data, followed by the application of segmentation and preprocessing operations.
 
