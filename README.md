@@ -56,6 +56,8 @@ Linux OS (Ubuntu 22.04) is used to validate this reference solution. Make sure t
 2. `sudo apt-get install -y build-essential gcc git libgl1-mesa-glx libglib2.0-0 python3-dev`
 3. `sudo apt-get install -y python3.9 python3-pip`, and some virtualenv like python3-venv or [conda](#1-set-up-system-software) 
 4. `pip install dataset-librarian`
+   
+**Note:** The current version of *dataset-librarian* requires Python version 3.9 or later, up to version 3.11. If your current Python version does not meet this requirement, please proceed with [Set Up System Software first](#1-set-up-system-software).
 
 ## How It Works?
 ### Architecture
