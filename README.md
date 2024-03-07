@@ -95,6 +95,7 @@ Use the links below to download the image datasets. Or skip to the [Docker](#run
 Once you've downloaded the image file (which will be in zip format) and placed it in the data directory, unzip it using the following command.
 
 ```
+cd data
 unzip CDD-CESM.zip
 ```
 
@@ -108,6 +109,7 @@ More details of the dataset_librarian can be found [here](https://pypi.org/proje
 
 
 ```
+cd $WORKSPACE/brca_multimodal
 python -m dataset_librarian.dataset -n brca --download --preprocess -d data/ --split_ratio 0.1
 ```
 
