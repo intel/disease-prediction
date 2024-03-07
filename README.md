@@ -92,7 +92,13 @@ Use the links below to download the image datasets. Or skip to the [Docker](#run
 
 - [High-resolution Contrast-enhanced spectral mammography (CESM) images](https://www.cancerimagingarchive.net/collection/cdd-cesm/)
 
-Once you have downloaded the image files and placed them into the data directory, proceed by executing the following command. This command will initiate the download of segmentation and annotation data, followed by the application of segmentation and preprocessing operations.
+Once you've downloaded the image file (which will be in zip format) and placed it in the data directory, unzip it using the following command.
+
+```
+unzip CDD-CESM.zip
+```
+
+After that, proceed by executing the following command. This will initiate the download of segmentation and annotation data, followed by segmentation and preprocessing operations.
 
 Command-line Interface:
 - -d : Directory location where the raw dataset will be saved on your system. It's also where the preprocessed dataset files will be written. If not set, a directory with the dataset name will be created.
