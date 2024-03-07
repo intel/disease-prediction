@@ -10,7 +10,7 @@ For more details of the dataset, visit the wikipage of the [CESM](https://wiki.c
 #### Setting Up the Data
 Use the links below to download the image datasets.
 
-- [High-resolution Contrast-enhanced spectral mammography (CESM) images](https://faspex.cancerimagingarchive.net/aspera/faspex/external_deliveries/260?passcode=5335d2514638afdaf03237780dcdfec29edf4238#)
+- [High-resolution Contrast-enhanced spectral mammography (CESM) images](https://www.cancerimagingarchive.net/collection/cdd-cesm/)
 
 Copy all the downloaded files into the *data* directory.
 
